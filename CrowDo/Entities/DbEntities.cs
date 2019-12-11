@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace CrowDo.Entities
 {
-    public class DbEntities
-    {
+
         class User
         {
             public string UserName { get; set; }
@@ -47,15 +46,15 @@ namespace CrowDo.Entities
             public string Title { get; set; }
             public double Cost { get; set; }
             public string Details { get; set; }
-            public string Quantity { get; set; }
+            public int Quantity { get; set; }
         }
         class Funding
         {
             public int FundingID { get; set; }
-            public string NumPackages { get; set; }
+            public int NumPackages { get; set; }
             public double ProjectID { get; set; }
-            public string PackageID { get; set; }
+            public int PackageID { get; set; }
         }
 
-    }
+
 }

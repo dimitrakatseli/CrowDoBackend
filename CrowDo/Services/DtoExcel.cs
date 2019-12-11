@@ -179,6 +179,9 @@ namespace CrowDo.Services
         public static void TransformData()
         {
 
+            //Packages
+            foreach(PackageDto packDto in AllExcellData.PackageList)
+                
         }
 
 
