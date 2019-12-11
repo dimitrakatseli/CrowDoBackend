@@ -47,7 +47,9 @@ namespace CrowDo.Controllers
             DTOExcel.LoadFromExcelPackages();
             DTOExcel.LoadFromExcelFunding();
             //AllExcellData.FundingList;
-            return DTOExcel.getNumOfPacksList();
+            DTOExcel.NumOfPacksToList();
+            List<int> lint = new List<int>();
+           return lint;
         }
 
     }

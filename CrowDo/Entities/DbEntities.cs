@@ -16,8 +16,9 @@ namespace CrowDo.Entities
             public string LastName { get; set; }
             public Status Status { get; set; }
             public Role Role { get; set; }
-            public string UserID { get; set; }
+            public int UserID { get; set; }
             public List<Project> Projects { get; set; }
+            public List<Funding> Fundings { get; set; }
         }
         enum Status
         {
@@ -32,7 +33,7 @@ namespace CrowDo.Entities
         }
         class Project
         {
-            public string ProjectID { get; set; }
+            public int ProjectID { get; set; }
             public string Title { get; set; }
             public string Description { get; set; }
             public DateTime StartDate { get; set; }
@@ -42,7 +43,7 @@ namespace CrowDo.Entities
         }
         class Package
         {
-            public string PackageID { get; set; }
+            public int PackageID { get; set; }
             public string Title { get; set; }
             public double Cost { get; set; }
             public string Details { get; set; }
@@ -50,7 +51,7 @@ namespace CrowDo.Entities
         }
         class Funding
         {
-            public string FundingID { get; set; }
+            public int FundingID { get; set; }
             public string NumPackages { get; set; }
             public double ProjectID { get; set; }
             public string PackageID { get; set; }

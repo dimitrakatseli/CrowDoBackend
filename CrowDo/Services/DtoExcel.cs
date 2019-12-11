@@ -150,7 +150,7 @@ namespace CrowDo.Services
 
         public static void NumOfPacksToList()
         {
-            string num;
+            
             List<string> strlist = new List<string>();
             foreach (ProjectDto proj in AllExcellData.ProjectList)
             {
@@ -175,6 +175,12 @@ namespace CrowDo.Services
 
             }
         }
+
+        public static void TransformData()
+        {
+
+        }
+
 
 
 

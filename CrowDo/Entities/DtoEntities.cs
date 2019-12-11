@@ -46,7 +46,7 @@ namespace CrowDo.Services
 
     public class AllExcellData
     {
-        public static  List<UserDto> UsersList { get; set; }
+        public static List<UserDto> UsersList { get; set; }
         public static List<ProjectDto> ProjectList { get; set; }
         public static List<PackageDto> PackageList { get; set; }
         public static List<FundingDto> FundingList { get; set; }
