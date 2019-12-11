@@ -7,5 +7,54 @@ namespace CrowDo.Entities
 {
     public class DbEntities
     {
+        class User
+        {
+            public string UserName { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public Status Status { get; set; }
+            public Role Role { get; set; }
+            public string UserID { get; set; }
+            public List<Project> Projects { get; set; }
+        }
+        enum Status
+        {
+            Active,
+            Inactive
+        }
+        enum Role
+        {
+            Backer,
+            Creator,
+            Administrator
+        }
+        class Project
+        {
+            public string ProjectID { get; set; }
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+            public double Goal { get; set; }
+            public List<Package> Packages { get; set; }
+        }
+        class Package
+        {
+            public string PackageID { get; set; }
+            public string Title { get; set; }
+            public double Cost { get; set; }
+            public string Details { get; set; }
+            public string Quantity { get; set; }
+        }
+        class Funding
+        {
+            public string FundingID { get; set; }
+            public string NumPackages { get; set; }
+            public double ProjectID { get; set; }
+            public string PackageID { get; set; }
+        }
+
     }
 }
