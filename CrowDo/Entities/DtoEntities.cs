@@ -27,6 +27,7 @@ namespace CrowDo.Services
     }
     public class PackageDto
     {
+        public string Code { get; set; }
         public string Title { get; set; }
         public double Cost { get; set; }
         public string Details { get; set; }
