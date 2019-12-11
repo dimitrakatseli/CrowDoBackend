@@ -42,11 +42,13 @@ namespace CrowDo.Entities
         }
         class Package
         {
+            public string Code { get; set; }
             public int PackageID { get; set; }
             public string Title { get; set; }
             public double Cost { get; set; }
             public string Details { get; set; }
             public int Quantity { get; set; }
+            public string Reward { get; set; }
         }
         class Funding
         {
@@ -55,6 +57,15 @@ namespace CrowDo.Entities
             public double ProjectID { get; set; }
             public int PackageID { get; set; }
         }
+
+     class DbEntities
+    {
+        public static List<Package> LPack { get; set; }
+        public static List<User> LUser { get; set; }
+        public static List<Project> LProject { get; set; }
+
+        public static List<Funding> LFunding { get; set; }
+    }
 
 
 }

@@ -20,20 +20,19 @@ namespace CrowDo.Services
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public String Packages { get; set; }
-        public  List<String> PackagesL { get; set; }
+        public List<String> PackagesL { get; set; }
         public string NumberOfPacks { get; set; }
         public List<int> NumberOfPacksL { get; set; }
 
     }
     public class PackageDto
     {
-        public string Code { get; set; }
         public string Title { get; set; }
         public double Cost { get; set; }
         public string Details { get; set; }
         public string Reward { get; set; }
         public int Quantity { get; set; }
-        
+
     }
 
     public class FundingDto

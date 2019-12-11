@@ -1,4 +1,5 @@
-﻿using NPOI.SS.UserModel;
+﻿using CrowDo.Entities;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -150,7 +151,7 @@ namespace CrowDo.Services
 
         public static void NumOfPacksToList()
         {
-            
+
             List<string> strlist = new List<string>();
             foreach (ProjectDto proj in AllExcellData.ProjectList)
             {
@@ -176,12 +177,42 @@ namespace CrowDo.Services
             }
         }
 
+
         public static void TransformData()
         {
+            List<Package> lpack = new List<Package>();
+            DbEntities.LPack = new List<Package>();
 
             //Packages
-            foreach(PackageDto packDto in AllExcellData.PackageList)
-                
+            foreach (PackageDto packDto in AllExcellData.PackageList)
+            {
+                Package pkg = new Package()
+                {
+                    Title = packDto.Title,
+                    Cost = packDto.Cost,
+                    Details = packDto.Details,
+                    Quantity = packDto.Quantity,
+                    Reward = packDto.Reward
+                };
+                lpack.Add(pkg);
+            }
+            DbEntities.LPack = lpack;
+            List<Project> lproj = new List<Project>();
+            DbEntities.LProject = new List<Project>();
+            foreach (ProjectDto projDto in AllExcellData.ProjectList)
+            {
+                Project proj = new Project()
+                {
+
+                }
+                lproj.Add(proj);
+
+            }
+            DbEntities.LProject = lproj;
+
+
+
+
         }
 
 
