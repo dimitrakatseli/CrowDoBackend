@@ -212,11 +212,18 @@ namespace CrowDo.Services
 
                 };
                 List<Package> packListSearch = new List<Package>();
-                foreach(PackageDto pack in AllExcellData.PackageList)
-                {   
-                    if()
+
+                foreach(String spack in projDto.PackagesL)
+                {
+                    foreach(Package pack in DbEntities.LPack)
+                    {
+                        if (pack.Code.Equals(spack)){
+                            packListSearch.Add(pack);
+                        }
+                    }
                     
                 }
+                proj.Packages = packListSearch;
 
 
                 lproj.Add(proj);
