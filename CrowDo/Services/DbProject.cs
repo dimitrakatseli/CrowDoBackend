@@ -1,14 +1,15 @@
-﻿using System;
+﻿using CrowDo.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CrowDo.Services
 {
-    public class DbProject
+    class DbProject
     {
 
-        public void AddProject(int id, Project project)
+         public static void AddProject(int id, Project project)
         {
             using (var db = new CrowDoDB())
             {
