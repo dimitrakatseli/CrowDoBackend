@@ -43,7 +43,6 @@ namespace CrowDo.Services
         public string Package { get; set; }
         public int Quantity { get; set; }
     }
-
     public class AllExcellData
     {
         public static List<UserDto> UsersList { get; set; }

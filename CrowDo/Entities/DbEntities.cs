@@ -41,6 +41,8 @@ namespace CrowDo.Entities
         public DateTime? EndDate { get; set; }
         public double Goal { get; set; }
         public List<Package> Packages { get; set; }
+        public User User { get; set; }
+        public int UserId { get; set; }
     }
     public class Package
     {

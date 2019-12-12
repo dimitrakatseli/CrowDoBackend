@@ -10,13 +10,12 @@ namespace CrowDo.Services
     {
 
 
-        public static void AddPackages(Package pack, int id)
+        public static void AddPackages(Package pack)
         {
             using (var db = new CrowDoDB())
             {
-                Project p = db.Projects.Where(p => p.ProjectID.Equals(id)).FirstOrDefault();
 
-                p.Packages.Add(pack);
+                db.Packages.Add(pack);
                 db.SaveChanges();
 
             }
