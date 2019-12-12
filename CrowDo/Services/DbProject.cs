@@ -1,4 +1,4 @@
-﻿using CrowDo.Entities;
+using CrowDo.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CrowDo.Services
 {
-    class DbProject
+    public class DbProject
     {
 
-         public static void AddProject(int id, Project project)
+        public void AddProject(int id, Project project)
         {
             using (var db = new CrowDoDB())
             {
@@ -38,8 +38,7 @@ namespace CrowDo.Services
                 }
 
             }
-
-
+            
 
         }
 
