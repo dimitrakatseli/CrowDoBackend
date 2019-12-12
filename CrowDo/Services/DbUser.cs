@@ -1,3 +1,4 @@
+using CrowDo.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -72,7 +73,7 @@ namespace CrowDo.Services
             {
 
                 User u = db.Users.Where(uu => uu.UserID.Equals(id)).FirstOrDefault();
-                u.Status = Status.inactive;
+                u.Status = Status.Inactive;
                 db.SaveChanges();
             }
 

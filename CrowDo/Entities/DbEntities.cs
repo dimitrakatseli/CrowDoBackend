@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace CrowDo.Entities
 {
 
-    class User
+    public class User
     {
         public string Code { get; set; }
         public string UserName { get; set; }
@@ -31,7 +31,7 @@ namespace CrowDo.Entities
         Creator,
         Administrator
     }
-    class Project
+    public class Project
     {
         public string Code { get; set; }
         public int ProjectID { get; set; }
@@ -42,7 +42,7 @@ namespace CrowDo.Entities
         public double Goal { get; set; }
         public List<Package> Packages { get; set; }
     }
-    class Package
+    public class Package
     {
         public string Code { get; set; }
         public int PackageID { get; set; }
@@ -52,7 +52,7 @@ namespace CrowDo.Entities
         public int Quantity { get; set; }
         public string Reward { get; set; }
     }
-    class Funding
+    public class Funding
     {
 
         public int FundingID { get; set; }
@@ -61,7 +61,7 @@ namespace CrowDo.Entities
         public int PackageID { get; set; }
     }
 
-    class DbEntities
+    public class DbEntities
     {
         public static List<Package> LPack { get; set; }
         public static List<User> LUser { get; set; }
