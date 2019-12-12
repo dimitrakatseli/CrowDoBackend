@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CrowDo.Services
@@ -50,9 +50,14 @@ namespace CrowDo.Services
             {
 
                 User u = db.Users.Where(uu => uu.UserID.Equals(id)).FirstOrDefault();
-                if (u == null) return "does not exist";
-               
-                db.SaveChanges();
+                if (u != null)
+                {
+
+                    db.Update(u);
+                    db.SaveChanges();
+
+                }
+                                    
             }
 
             return "updated";
