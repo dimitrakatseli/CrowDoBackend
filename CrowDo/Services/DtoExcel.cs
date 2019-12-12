@@ -92,7 +92,7 @@ namespace CrowDo.Services
             {//null is when the row only contains empty cells 
                 if (sheet.GetRow(row) != null)
                 {
-
+                    
 
                     PackageDto package = new PackageDto
                     {
@@ -188,6 +188,7 @@ namespace CrowDo.Services
             {
                 Package pkg = new Package()
                 {
+                    Code = packDto.Code,
                     Title = packDto.Title,
                     Cost = packDto.Cost,
                     Details = packDto.Details,
@@ -203,8 +204,21 @@ namespace CrowDo.Services
             {
                 Project proj = new Project()
                 {
+                    Code = projDto.Code,
+                    Title = projDto.Title,
+                    StartDate = projDto.StartDate,
+                    Goal = 500.99,
+                    Packages = new List<Package>()
 
+                };
+                List<Package> packListSearch = new List<Package>();
+                foreach(PackageDto pack in AllExcellData.PackageList)
+                {   
+                    if()
+                    
                 }
+
+
                 lproj.Add(proj);
 
             }

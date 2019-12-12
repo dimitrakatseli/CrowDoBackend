@@ -19,8 +19,8 @@ namespace CrowDo.Services
         public string Creator { get; set; }
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
-        public String Packages { get; set; }
-        public List<String> PackagesL { get; set; }
+        public string Packages { get; set; }
+        public List<string> PackagesL { get; set; }
         public string NumberOfPacks { get; set; }
         public List<int> NumberOfPacksL { get; set; }
 
