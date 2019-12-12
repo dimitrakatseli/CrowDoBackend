@@ -230,11 +230,12 @@ namespace CrowDo.Services
 
             }
             DbEntities.LProject = lproj;
+            foreach(FundingDto dtofund in AllExcellData.FundingList)
+            {
 
-
-
-
+            }
         }
+
 
 
 
