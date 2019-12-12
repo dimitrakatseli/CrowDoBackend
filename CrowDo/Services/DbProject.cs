@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace CrowDo.Services
 {
-    public class DbProject
+    class DbProject
     {
 
       
-             public static List<Project> GetListOfProjects()
+             public void static List<Project> GetListOfProjects()
         {
             using (var db = new CrowDoDB())
             {
