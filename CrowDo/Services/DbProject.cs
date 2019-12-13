@@ -7,21 +7,21 @@ namespace CrowDo.Services
 {
     public class DbProject
     {
-        public static List<Project> GetListOfProjects()
+        public List<Project> GetListOfProjects()
         {
             using (var db = new CrowDoDB())
             {
                 return db.Projects.ToList();
             }
         }
-        public static Project GetProject(string id)
+        public Project GetProject(string id)
         {
             using (var db = new CrowDoDB())
             {
                 return db.Projects.Where(p => p.ProjectID.Equals(id)).FirstOrDefault();
             }
         }
-        public static void AddProject(Project project)
+        public void AddProject(Project project)
         {
             using (var db = new CrowDoDB())
             {
@@ -30,7 +30,7 @@ namespace CrowDo.Services
                 db.SaveChanges();
             }
         }
-        public static void EditProject(Project project, int id)
+        public void EditProject(Project project, int id)
         {
             using (var db = new CrowDoDB())
             {

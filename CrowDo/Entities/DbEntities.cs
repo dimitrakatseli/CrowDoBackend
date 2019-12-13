@@ -42,7 +42,8 @@ namespace CrowDo.Entities
         public double Goal { get; set; }
         public List<Package> Packages { get; set; }
         public User User { get; set; }
-        public int UserId { get; set; }
+        public int UserID { get; set; }
+        public int? NumOfViews { get; set; }
     }
     public class Package
     {
@@ -53,14 +54,20 @@ namespace CrowDo.Entities
         public string Details { get; set; }
         public int Quantity { get; set; }
         public string Reward { get; set; }
+        public Project Project { get; set; }
+        public int? ProjectID { get; set; }
     }
     public class Funding
     {
 
         public int FundingID { get; set; }
         public int? NumPackages { get; set; }
-        public int? ProjectID { get; set; }
-        public int? PackageID { get; set; }
+        public Project Project { get; set; }
+        public int ProjectID { get; set; }
+        public Package Package { get; set; }
+        public int PackageID { get; set; }
+        public User User { get; set; }
+        public int? UserID { get; set; }
     }
 
     public class DbEntities

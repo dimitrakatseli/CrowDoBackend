@@ -29,16 +29,20 @@ namespace CrowDo.Migrations
                     b.Property<int?>("NumPackages")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PackageID")
+                    b.Property<int>("PackageID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProjectID")
+                    b.Property<int>("ProjectID")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("FundingID");
+
+                    b.HasIndex("PackageID");
+
+                    b.HasIndex("ProjectID");
 
                     b.HasIndex("UserID");
 
@@ -99,18 +103,21 @@ namespace CrowDo.Migrations
                     b.Property<double>("Goal")
                         .HasColumnType("float");
 
+                    b.Property<int?>("NumOfViews")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("ProjectID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Projects");
                 });
@@ -153,14 +160,26 @@ namespace CrowDo.Migrations
 
             modelBuilder.Entity("CrowDo.Entities.Funding", b =>
                 {
-                    b.HasOne("CrowDo.Entities.User", null)
+                    b.HasOne("CrowDo.Entities.Package", "Package")
+                        .WithMany()
+                        .HasForeignKey("PackageID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CrowDo.Entities.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CrowDo.Entities.User", "User")
                         .WithMany("Fundings")
                         .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("CrowDo.Entities.Package", b =>
                 {
-                    b.HasOne("CrowDo.Entities.Project", null)
+                    b.HasOne("CrowDo.Entities.Project", "Project")
                         .WithMany("Packages")
                         .HasForeignKey("ProjectID");
                 });
@@ -169,7 +188,7 @@ namespace CrowDo.Migrations
                 {
                     b.HasOne("CrowDo.Entities.User", "User")
                         .WithMany("Projects")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

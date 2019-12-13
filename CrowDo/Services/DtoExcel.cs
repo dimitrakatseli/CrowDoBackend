@@ -1,5 +1,4 @@
 ﻿using CrowDo.Entities;
-using CrowDo.Services.CrowDo.Services;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
@@ -16,7 +15,7 @@ namespace CrowDo.Services
 
         private static readonly string filename = @"C:\Users\KDIMITRA\Desktop\accenture\project\demodataForCrowdo.xlsx";
 
-        public static void LoadFromExcelUsers()
+        public void LoadFromExcelUsers()
         {
 
             List<UserDto> usersList = new List<UserDto>();
@@ -43,7 +42,7 @@ namespace CrowDo.Services
             //return usersList;
 
         }
-        public static void LoadFromExcelProjects()
+        public void LoadFromExcelProjects()
         {
             AllExcellData.ProjectList = new List<ProjectDto>();
             List<ProjectDto> projectList = new List<ProjectDto>();
@@ -74,7 +73,7 @@ namespace CrowDo.Services
 
         }
 
-        public static void LoadFromExcelPackages()
+        public void LoadFromExcelPackages()
         {
             AllExcellData.PackageList = new List<PackageDto>();
 
@@ -102,7 +101,7 @@ namespace CrowDo.Services
                 }
             }
         }
-        public static void LoadFromExcelFunding()
+        public void LoadFromExcelFunding()
         {
             AllExcellData.FundingList = new List<FundingDto>();
 
@@ -131,7 +130,7 @@ namespace CrowDo.Services
             }
         }
 
-        public static UserDto FindExcellUser(string code)
+        public UserDto FindExcellUser(string code)
         {
             foreach (UserDto user in AllExcellData.UsersList)
             {
@@ -143,7 +142,7 @@ namespace CrowDo.Services
             return null;
         }
 
-        public static void NumOfPacksToList()
+        public void NumOfPacksToList()
         {
 
             List<string> strlist = new List<string>();
@@ -158,7 +157,7 @@ namespace CrowDo.Services
 
         }
 
-        public static void SplitPackages()
+        public void SplitPackages()
         {
             foreach (ProjectDto proj in AllExcellData.ProjectList)
             {
@@ -172,7 +171,7 @@ namespace CrowDo.Services
         }
 
 
-        public static void TransformData()
+        public void TransformData()
         {
 
             List<Package> lpack = new List<Package>();
@@ -187,57 +186,14 @@ namespace CrowDo.Services
                     Title = packDto.Title,
                     Cost = packDto.Cost,
                     Details = packDto.Details,
-                    Quantity = packDto.Quantity,
+                    Quantity = 3,
                     Reward = packDto.Reward
                 };
                 lpack.Add(pkg);
             }
             DbEntities.LPack = lpack;
-            List<Project> lproj = new List<Project>();
-            DbEntities.LProject = new List<Project>();
-            foreach (ProjectDto projDto in AllExcellData.ProjectList)
-            {
-                Project proj = new Project()
-                {
-                    Code = projDto.Code,
-                    Title = projDto.Title,
-                    StartDate = projDto.StartDate,
-                    Goal = 500.99
-
-                };
-
-                DbEntities.LProject.Add(proj);
-                /*
-                List<Package> packListSearch = new List<Package>();
-
-                foreach(String spack in projDto.PackagesL)
-                {
-                    foreach(Package pack in DbEntities.LPack)
-                    {
-                        if (pack.Code.Equals(spack)){
-                            packListSearch.Add(pack);
-                        }
-                    }
-                    
-                }
-                proj.Packages = packListSearch;
 
 
-                lproj.Add(proj);
-
-            }
-            */
-            }
-            DbEntities.LProject = lproj;
-            DbEntities.LFunding = new List<Funding>();
-            foreach (FundingDto dtofund in AllExcellData.FundingList)
-            {
-                Funding fund = new Funding
-                {
-                    NumPackages = dtofund.Quantity
-                };
-                DbEntities.LFunding.Add(fund);
-            }
 
             DbEntities.LUser = new List<User>();
             int counter = 0;
@@ -259,7 +215,7 @@ namespace CrowDo.Services
             }
         }
 
-        public static void test()
+        public void test()
         {
             LoadFromExcelUsers();
             LoadFromExcelProjects();
@@ -280,41 +236,100 @@ namespace CrowDo.Services
                 DbUser.AddUser(user);
             }
 
+            SaveDTOProjects();
+            SaveDTOFundings();
+
+        }
+
+        public void SaveDTOFundings()
+        {
+            Funding dbfund;
             using (CrowDoDB db = new CrowDoDB())
             {
-                foreach (ProjectDto proj in AllExcellData.ProjectList)
+                foreach (FundingDto fund in AllExcellData.FundingList)
                 {
-                    string userCode = proj.Creator;
-                    User user = db.Users.Where(u => u.Code.Equals(userCode)).First();
-                    if (user == null)
-                    {
-                        continue;
-                    }
 
-                    Project p = new Project
+                    User user = db.Users.Where(x => x.Code.Equals(fund.User)).FirstOrDefault();
+                    Console.WriteLine(user.Code);
+                    if (user == null) continue;
+                    Project project = db.Projects.Where(x => x.Code.Equals(fund.Project)).FirstOrDefault();
+                    Console.WriteLine(project.Code);
+                    if (project == null) continue;
+                    Package package = db.Packages.Where(x => x.Code.Equals(fund.Package)).FirstOrDefault();
+                    Console.WriteLine(package.Code);
+                    if (package == null) continue;
+                    dbfund = new Funding()
                     {
-                        Title = proj.Title,
-                        User = user
+                        NumPackages = fund.Quantity,
+                        User = user,
+                        Package = package,
+                        Project = project
+
+
                     };
-
-                    db.Projects.Add(p);
+                    db.Fundings.Add(dbfund);
                 }
-
                 db.SaveChanges();
             }
-            foreach (Funding fund in DbEntities.LFunding)
+        }
+
+
+        public void SaveDTOProjects()
+        {
+            using (CrowDoDB db = new CrowDoDB())
             {
-                DbFunding.AddFunding(fund);
+                Package package;
+                foreach (ProjectDto proj in AllExcellData.ProjectList)
+                {
+
+                    string userCode = proj.Creator;
+                    User user = db.Users.Where(u => u.Code.Equals(userCode)).First();
+                    if (user == null) continue;
+
+                    Project p = new Project()
+                    {
+                        Title = proj.Title,
+                        StartDate = proj.StartDate,
+                        User = user,
+                        Packages = new List<Package>(),
+                        Code = proj.Code,
+                        NumOfViews =0,
+                        Goal = 40000
+
+                   
+
+
+                    };
+
+
+
+
+
+                    foreach (String pack in proj.PackagesL)
+                    {
+                        package = db.Packages.Where(x => x.Code.Equals(pack)).FirstOrDefault();
+                        if (package == null) continue;
+                        p.Packages.Add(package);
+                    }
+
+
+
+                    db.Projects.Add(p);
+
+                }
+                db.SaveChanges();
+
             }
 
 
         }
 
-
-
-
-
     }
+
+
+
 }
+
+
 
 

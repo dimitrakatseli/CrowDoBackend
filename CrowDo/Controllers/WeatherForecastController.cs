@@ -19,11 +19,15 @@ namespace CrowDo.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private DTOExcel _dtoExcel;
+        public WeatherForecastController (DTOExcel dtoExcel,ILogger<WeatherForecastController> logger)
         {
+            _dtoExcel = dtoExcel; 
             _logger = logger;
         }
+
+
+      
 
         //[HttpGet]
         public IEnumerable<WeatherForecast> Get()
@@ -49,7 +53,7 @@ namespace CrowDo.Controllers
             //AllExcellData.FundingList;
             //DTOExcel.NumOfPacksToList();
             List<int> lint = new List<int>();
-            DTOExcel.test();
+            _dtoExcel.test();
            return lint;
         }
 
