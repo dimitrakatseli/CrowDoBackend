@@ -224,16 +224,17 @@ namespace CrowDo.Services
             NumOfPacksToList();
             SplitPackages();
             TransformData();
+            DataManipulation manip = new DataManipulation();
             foreach (Package pack in DbEntities.LPack)
             {
-                DbPackage.AddPackages(pack);
+               manip.AddPackages(pack);
             }
 
 
 
             foreach (User user in DbEntities.LUser)
             {
-                DbUser.AddUser(user);
+                manip.AddUser(user);
             }
 
             SaveDTOProjects();
@@ -297,29 +298,16 @@ namespace CrowDo.Services
                         Goal = 40000,
                         Status = Status.Active
 
-                   
-
-
                     };
-
-
-
-
-
                     foreach (String pack in proj.PackagesL)
                     {
                         package = db.Packages.Where(x => x.Code.Equals(pack)).FirstOrDefault();
                         if (package == null) continue;
                         p.Packages.Add(package);
                     }
-
-
-
                     db.Projects.Add(p);
-
                 }
                 db.SaveChanges();
-
             }
 
 

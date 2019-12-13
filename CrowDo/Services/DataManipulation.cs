@@ -168,6 +168,44 @@ namespace CrowDo.Services
                 }
             }
         }
+
+        public void AddFunding(Funding fund)
+        {
+            using (var db = new CrowDoDB())
+            {
+                db.Fundings.Add(fund);
+                db.SaveChanges();
+            }
+        }
+        public void AddUser(User user)
+        {
+            using (var db = new CrowDoDB())
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+        }
+        public List<Funding> GetAllUserFunding(int id)
+        {
+            using (var db = new CrowDoDB())
+            {
+                return db.Fundings.Where(i => i.UserID.Equals(id)).ToList();
+            }
+
+        }
+
+        public void AddPackages(Package pack)
+        {
+            using (var db = new CrowDoDB())
+            {
+
+                db.Packages.Add(pack);
+                db.SaveChanges();
+
+            }
+        }
+
+
     }
 }
 
