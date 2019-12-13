@@ -45,15 +45,10 @@ namespace CrowDo.Controllers
         [HttpGet]
         public List<int> GetUsers()
         {
-            // rng = new Random();
-            //DTOExcel.LoadFromExcelUsers();
-            //DTOExcel.LoadFromExcelProjects();
-            //DTOExcel.LoadFromExcelPackages();
-            //DTOExcel.LoadFromExcelFunding();
-            //AllExcellData.FundingList;
-            //DTOExcel.NumOfPacksToList();
+
             List<int> lint = new List<int>();
-            _dtoExcel.test();
+            //data transfer only first time
+            //_dtoExcel.test();
            return lint;
         }
 

@@ -44,6 +44,7 @@ namespace CrowDo.Entities
         public User User { get; set; }
         public int UserID { get; set; }
         public int? NumOfViews { get; set; }
+        public Status? Status { get; set; }
     }
     public class Package
     {
@@ -56,6 +57,8 @@ namespace CrowDo.Entities
         public string Reward { get; set; }
         public Project Project { get; set; }
         public int? ProjectID { get; set; }
+       
+
     }
     public class Funding
     {

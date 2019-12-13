@@ -17,6 +17,15 @@ namespace CrowDo.Services
                     db.SaveChanges();
                 }
             }
+            public static List<Funding> GetAllUserFunding(int id)
+        {
+            using (var db = new CrowDoDB())
+            {
+                return db.Fundings.Where(i => i.UserID.Equals(id)).ToList();
+            }
+            
+        }
+
         }
     
 }

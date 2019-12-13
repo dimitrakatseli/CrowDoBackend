@@ -294,7 +294,8 @@ namespace CrowDo.Services
                         Packages = new List<Package>(),
                         Code = proj.Code,
                         NumOfViews =0,
-                        Goal = 40000
+                        Goal = 40000,
+                        Status = Status.Active
 
                    
 

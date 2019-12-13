@@ -14,7 +14,7 @@ namespace CrowDo.Services
                 return db.Projects.ToList();
             }
         }
-        public Project GetProject(string id)
+        public Project GetProject(int id)
         {
             using (var db = new CrowDoDB())
             {

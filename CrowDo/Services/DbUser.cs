@@ -1,4 +1,5 @@
 using CrowDo.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,13 +18,13 @@ namespace CrowDo.Services
         }
 
 
-        public static User GetUser(string id)
+        public static User GetUserFundings(string id)
         {
 
             using (var db = new CrowDoDB())
             {
 
-                return db.Users.Where(i => i.UserID.Equals(id)).FirstOrDefault();
+                return db.Users.Where(i => i.UserID.Equals(id)).Include(p=>p.Projects).Include(p=>p.Fundings).FirstOrDefault();
 
             }
 
@@ -73,7 +74,8 @@ namespace CrowDo.Services
             {
 
                 User u = db.Users.Where(uu => uu.UserID.Equals(id)).FirstOrDefault();
-                u.Status = Status.Inactive;
+                //u.Status = Status.Inactive;
+                //db.Users.Update();
                 db.SaveChanges();
             }
 
