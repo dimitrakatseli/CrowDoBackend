@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 namespace CrowDo.Services
 {
     public class DataManipulation {
+
         public List<Project> GetProjectsFromDB()
         {
             using (var db = new CrowDoDB())
             {
-                return db.Projects.ToList();
+                return db.Projects.Where(proj=>proj.Status == Status.Active).ToList();
             }
         }
         public Project GetProjectsFromDB(int id)
@@ -56,11 +57,11 @@ namespace CrowDo.Services
             }
             return "User is deleted";
         }
-        public string UpdateProject(int id, Project proj)
+        public string UpdateProject(Project proj)
         {
             using (var db = new CrowDoDB())
             {
-                Project p = db.Projects.Where(proj => proj.ProjectID == id).FirstOrDefault();
+                Project p = db.Projects.Where(proje => proje.ProjectID == proj.ProjectID).FirstOrDefault();
                 if (p == null) 
                     return "not found";
                 else
@@ -116,15 +117,15 @@ namespace CrowDo.Services
                     .ToList();
             }
         }
-        public string Login(string username, string password)
+        public Boolean Login(User user)
         {
             using (var db = new CrowDoDB())
             {
-                User user = db.Users.Where(usr => usr.UserName == username && usr.Password==password).FirstOrDefault();
+                User usr = db.Users.Where(usr => usr.UserName == user.UserName && usr.Password==user.Password).FirstOrDefault();
                 if (user == null)
-                    return "not found";
+                    return false;
                 else
-                    return "OK";
+                    return true;
             }
         }
         
@@ -149,11 +150,11 @@ namespace CrowDo.Services
                 return db.Users.Where(usr => (usr.UserID == id) && (usr.Status ==Status.Active)).FirstOrDefault();
             }
         }
-        public string EditUser(int id, User user)
+        public string EditUser(User user)
         {
             using (var db = new CrowDoDB())
             {
-                User usr = db.Users.Where(us => us.UserID == id).FirstOrDefault();
+                User usr = db.Users.Where(us => us.UserID == user.UserID).FirstOrDefault();
                 if (usr == null) 
                     return "NOT FOUND";
                 else

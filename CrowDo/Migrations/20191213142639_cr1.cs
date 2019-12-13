@@ -40,7 +40,8 @@ namespace CrowDo.Migrations
                     EndDate = table.Column<DateTime>(nullable: true),
                     Goal = table.Column<double>(nullable: false),
                     UserID = table.Column<int>(nullable: false),
-                    NumOfViews = table.Column<int>(nullable: true)
+                    NumOfViews = table.Column<int>(nullable: true),
+                    Status = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
