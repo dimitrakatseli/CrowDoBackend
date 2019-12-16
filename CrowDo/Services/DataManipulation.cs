@@ -129,7 +129,7 @@ namespace CrowDo.Services
             }
         }
         
-        public string SignUp(User user)
+        public string Register(User user)
         {
             using (var db = new CrowDoDB())
             {
