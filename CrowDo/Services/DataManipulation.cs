@@ -1,4 +1,5 @@
 ﻿using CrowDo.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,12 @@ namespace CrowDo.Services
         {
             using (var db = new CrowDoDB())
             {
+                AddView(id);
                 return db.Projects.Where(proj => proj.ProjectID == id ).FirstOrDefault();
             }
         }
+
+
         public Project GetProjectFromDB(string name)
         {
             using (var db = new CrowDoDB())
@@ -112,34 +116,32 @@ namespace CrowDo.Services
         {
             using (var db = new CrowDoDB())
             {
+               
                 return db.Fundings
                     .Where(funds => funds.ProjectID == projId)
                     .ToList();
             }
         }
-        public Boolean Login(User user)
+        public User Login(User user)
         {
             using (var db = new CrowDoDB())
             {
                 User usr = db.Users.Where(usr => usr.UserName == user.UserName && usr.Password==user.Password).FirstOrDefault();
-                if (user == null)
-                    return false;
-                else
-                    return true;
+                return usr;
             }
         }
         
-        public string Register(User user)
+        public User Register(User user)
         {
             using (var db = new CrowDoDB())
             {
                 if (db.Users.Where(usr=>usr.UserName.Equals(user.UserName)).ToList()==null)
-                    return "Exists";
+                    return null;
                 else
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
-                    return "Created";
+                    return user;
                 }
             }
         }
@@ -189,11 +191,23 @@ namespace CrowDo.Services
         {
             using (var db = new CrowDoDB())
             {
-                return db.Fundings.Where(i => i.UserID.Equals(id)).ToList();
+                return db.Fundings.Where(i => i.UserID.Equals(id))
+                    .Include(it => it.Project)
+                    .Include(it => it.Package)
+                    .ToList();
             }
 
         }
+        public List<Project> GetAllUserProjects(int id)
+        {
+            using (var db = new CrowDoDB())
+            {
+                return db.Projects.Where(i => i.UserID.Equals(id))
+                    .Include(it => it.Packages)
+                    .ToList();
+            }
 
+        }
         public void AddPackages(Package pack)
         {
             using (var db = new CrowDoDB())
@@ -202,6 +216,22 @@ namespace CrowDo.Services
                 db.Packages.Add(pack);
                 db.SaveChanges();
 
+            }
+        }
+
+        public string AddView(int id)
+        {
+            using (var db = new CrowDoDB())
+            {
+                Project p = db.Projects.Where(proje => proje.ProjectID == id).FirstOrDefault();
+                if (p == null)
+                    return "not found";
+                else
+                {
+                    p.NumOfViews = p.NumOfViews+1;
+                    db.SaveChanges();
+                    return "Updated View";
+                }
             }
         }
 

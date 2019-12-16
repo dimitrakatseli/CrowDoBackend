@@ -97,14 +97,14 @@ namespace CrowDo.Controllers
             _dataM.AddProject(p);
         }
       
-        [HttpPost("register/member")]
-        public string Register(User user)
+        [HttpPost("register/user")]
+        public User Register(User user)
         {
             return _dataM.Register(user);
         }
         
-        [HttpGet("member/login/{username}/{password}")]
-        public Boolean LogIn(User user)
+        [HttpPost("user/login")]
+        public User LogIn(User user)
         {
             return _dataM.Login(user);
         }
@@ -122,6 +122,10 @@ namespace CrowDo.Controllers
         }
 
 
-
+        [HttpGet("user/project/{id}")]
+        public List<Project> GetUserProjects(int id)
+        {
+            return _dataM.GetAllUserProjects(id);
+        }
     }
 }
