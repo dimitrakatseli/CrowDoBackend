@@ -67,7 +67,7 @@ namespace CrowDo.Controllers
             return _dataM.GetAllUserFunding(id);
         }
         
-        [HttpPost("fund-project")]
+        [HttpPost("fund/project")]
         public Boolean FundAProject(Funding fund)
         {
             return _dataM.FundProject(fund);
@@ -91,10 +91,11 @@ namespace CrowDo.Controllers
             return _dataM.UpdateProject(project);
         }
         
-        [HttpPost("project/new")]
-        public void SetAnewProject(Project p)
+        [HttpPost("project")]
+        public string SetAnewProject(Project p)
         {
             _dataM.AddProject(p);
+            return "project has been added";
         }
       
         [HttpPost("register/user")]

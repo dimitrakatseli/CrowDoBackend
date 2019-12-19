@@ -13,7 +13,7 @@ namespace CrowDo.Services
         {
             using (var db = new CrowDoDB())
             {
-                return db.Projects.Where(proj=>proj.Status == Status.Active).ToList();
+                return db.Projects.Where(proj=>proj.Status == Status.Active).Include(it => it.Packages).ToList();
             }
         }
         public Project GetProjectsFromDB(int id)
@@ -21,7 +21,7 @@ namespace CrowDo.Services
             using (var db = new CrowDoDB())
             {
                 AddView(id);
-                return db.Projects.Where(proj => proj.ProjectID == id ).FirstOrDefault();
+                return db.Projects.Where(proj => proj.ProjectID == id  && proj.Status == Status.Active).Include(it => it.Packages).FirstOrDefault();
             }
         }
 
@@ -29,7 +29,7 @@ namespace CrowDo.Services
         public Project GetProjectFromDB(string name)
         {
             using (var db = new CrowDoDB())
-            {
+            {   
                 return db.Projects.Where(proj => ((proj.Title.Equals(name))&&(proj.Status==Status.Active))).FirstOrDefault();
             }
         }
@@ -90,6 +90,8 @@ namespace CrowDo.Services
                 if (usr == null) 
                     return ;
                 proj.User = usr;
+                proj.Status = Status.Active;
+                
                 db.Projects.Add(proj);
                 db.SaveChanges();
                 
@@ -103,10 +105,11 @@ namespace CrowDo.Services
                 if (user == null)
                     return false;
                 fund.User = user;
-                Project project = db.Projects.Where(proj => proj.Code.Equals(fund.Project.Code)).FirstOrDefault();
+                Project project = db.Projects.Where(proj => proj.ProjectID.Equals(fund.Project.ProjectID)).FirstOrDefault();
                 fund.Project = project;
-                Package package = db.Packages.Where(pack => pack.Code.Equals(fund.Package.Code)).FirstOrDefault();
+                Package package = db.Packages.Where(pack => pack.PackageID.Equals(fund.Package.PackageID)).FirstOrDefault();
                 fund.Package = package;
+                fund.NumPackages = 1;
                 db.Fundings.Add(fund);
                 db.SaveChanges();
                 return true;
@@ -139,6 +142,7 @@ namespace CrowDo.Services
                     return null;
                 else
                 {
+                    user.Status = Status.Active;
                     db.Users.Add(user);
                     db.SaveChanges();
                     return user;
@@ -202,7 +206,7 @@ namespace CrowDo.Services
         {
             using (var db = new CrowDoDB())
             {
-                return db.Projects.Where(i => i.UserID.Equals(id))
+                return db.Projects.Where(i => i.UserID.Equals(id) && i.Status==Status.Active)
                     .Include(it => it.Packages)
                     .ToList();
             }
