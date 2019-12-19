@@ -9,32 +9,43 @@ Get
 https://localhost:44330/API/excell
 
 https://localhost:44330/API/projects
+
 https://localhost:44330/API/projects/{id}
+
 https://localhost:44330/API/project/{id}
+
 https://localhost:44330/API/projects1/{name}
 
 https://localhost:44330/API/user/project/{id}
 
 https://localhost:44330/API/fundings/{userid}
+
 https://localhost:44330/API/fundings/member/{id} 
+
 https://localhost:44330/API/fundings/member/{id}
 
 Post
 
 https://localhost:44330/API/fund/project
+
 https://localhost:44330/API/project/new
+
 https://localhost:44330/API/register/user
+
 https://localhost:44330/API/user/login
 
 
     Put
 https://localhost:44330/API/edit/project/{id}
+
 https://localhost:44330/API/edit/member/{id}
 
 
 Delete 
 https://localhost:44330/API/delete/project/{id}
+
 https://localhost:44330/API/delete/member/{id}
 
 Examples
+
 
